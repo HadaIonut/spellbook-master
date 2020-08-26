@@ -87,10 +87,6 @@ class spellManager {
             ui.notifications.warn("No spells found");
         }
     }
-
-    public learnSpell(item) {
-        console.log("plm");
-    }
 }
 
 export default spellManager.getInstance();

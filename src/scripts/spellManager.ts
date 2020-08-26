@@ -33,15 +33,26 @@ class spellManager {
         }
     }
 
-    private async _prepareSpellbookText(items: any): Promise<string> {
+    private async _prepareDataForText(items: any) {
         const spellCompendiums = this._findSpellCompendium();
-        let spellBookText = ``;
+        const compendiumEntry = [];
         for (const item of items) {
             if (item.type !== "spell") continue;
-            const compendiumEntry = [...await this._findSpellInCompendium(item, spellCompendiums)];
-            spellBookText += `@Compendium[${compendiumEntry[1]}.${compendiumEntry[0]._id}]{${compendiumEntry[0].name}}`;
-            spellBookText += '<br>'
+            compendiumEntry.push([...await this._findSpellInCompendium(item, spellCompendiums)]);
         }
+        compendiumEntry.sort((a, b) => {
+            if (a[2] < b[2]) return -1;
+            if (a[2] > b[2]) return 1;
+            return 0
+        });
+        return compendiumEntry
+    }
+
+    private async _prepareSpellbookText(items: any): Promise<string> {
+        let spellBookText = ``;
+        const entries = await this._prepareDataForText(items);
+        //spellBookText += `@Compendium[${compendiumEntry[1]}.${compendiumEntry[0]._id}]{${compendiumEntry[0].name}}`;
+        //spellBookText += '<br>'
         return spellBookText;
     }
 

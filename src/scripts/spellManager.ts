@@ -18,16 +18,16 @@ class spellManager {
         return spellCompendiums;
     }
 
-    private async _findSpellInCompendium(spell: any, compendiums: Set<any>): Promise<Set<any>> {
-        const entrySet = new Set();
+    private async _findSpellInCompendium(spell: any, compendiums: Set<any>): Promise<Map<any, any>> {
+        const entrySet = new Map();
         for (const key of compendiums) {
             const pack = game.packs.get(key);
             await pack.getIndex();
             const entry = pack.index.find(e => e.name === spell.name);
             if (entry) {
-                entrySet.add(entry);
-                entrySet.add(key);
-                entrySet.add(spell.labels.level);
+                entrySet.set("entry", entry);
+                entrySet.set("key", key);
+                entrySet.set("level", spell.labels.level);
                 return entrySet;
             }
         }
@@ -38,11 +38,11 @@ class spellManager {
         const compendiumEntry = [];
         for (const item of items) {
             if (item.type !== "spell") continue;
-            compendiumEntry.push([...await this._findSpellInCompendium(item, spellCompendiums)]);
+            compendiumEntry.push(await this._findSpellInCompendium(item, spellCompendiums));
         }
         compendiumEntry.sort((a, b) => {
-            if (a[2] < b[2]) return -1;
-            if (a[2] > b[2]) return 1;
+            if (a.get("level") < b.get("level")) return -1;
+            if (a.get("level") > b.get("level")) return 1;
             return 0
         });
         return compendiumEntry
@@ -51,8 +51,16 @@ class spellManager {
     private async _prepareSpellbookText(items: any): Promise<string> {
         let spellBookText = ``;
         const entries = await this._prepareDataForText(items);
-        //spellBookText += `@Compendium[${compendiumEntry[1]}.${compendiumEntry[0]._id}]{${compendiumEntry[0].name}}`;
-        //spellBookText += '<br>'
+        let previous = entries[0].get('level');
+        spellBookText += `<div align="center"> <b align="center">${previous}: </b>`;
+        entries.forEach((entry) => {
+            if (entry.get('level') !== previous) {
+                spellBookText += `</div>`;
+                previous = entry.get('level');
+                spellBookText += `<div align="center"> <b align="center">${previous}: </b> `;
+            }
+            spellBookText += `<p align="center"> @Compendium[${entry.get("key")}.${entry.get("entry")._id}]{${entry.get("entry").name}} </p>`;
+        })
         return spellBookText;
     }
 
@@ -78,6 +86,10 @@ class spellManager {
         } else {
             ui.notifications.warn("No spells found");
         }
+    }
+
+    public learnSpell(item) {
+        console.log("plm");
     }
 }
 

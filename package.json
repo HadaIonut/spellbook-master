@@ -1,0 +1,24 @@
+{
+  "name": "foundry-project-preset",
+  "version": "0.0.1",
+  "description": "Some files to help you get started with a FoundryVTT project",
+  "scripts": {
+    "watch": "gulp build && gulp build-watch",
+    "build": "gulp build",
+    "link": "gulp link"
+  },
+  "author": "HadaIonut",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/gulp": "^4.0.6",
+    "foundry-pc-types": "gitlab:foundry-projects/foundry-pc/foundry-pc-types",
+    "fs-extra": "^9.0.1",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-scss-combine": "^1.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript": "^3.9.7"
+  }
+}

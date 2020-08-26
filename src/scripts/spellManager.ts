@@ -27,21 +27,28 @@ class spellManager {
             if (entry) {
                 entrySet.add(entry);
                 entrySet.add(key);
+                entrySet.add(spell.labels.level);
                 return entrySet;
             }
         }
     }
 
-    public async spellExporter(actor) {
-        let spellBookText = ``;
+    private async _prepareSpellbookText(items: any): Promise<string> {
         const spellCompendiums = this._findSpellCompendium();
-        const items = actor.data.items;
-
+        let spellBookText = ``;
         for (const item of items) {
             if (item.type !== "spell") continue;
             const compendiumEntry = [...await this._findSpellInCompendium(item, spellCompendiums)];
             spellBookText += `@Compendium[${compendiumEntry[1]}.${compendiumEntry[0]._id}]{${compendiumEntry[0].name}}`;
+            spellBookText += '<br>'
         }
+        return spellBookText;
+    }
+
+    public async spellExporter(actor) {
+        const items = actor.data.items;
+
+        const spellBookText = await this._prepareSpellbookText(items);
 
         const newItemName = `${actor.data.name}'s Spellbook`
         const newItemData = {
@@ -49,11 +56,17 @@ class spellManager {
             type: "loot",
             flags: "",
             img: "systems/dnd5e/icons/items/inventory/book-purple.jpg",
-            data:{
-                description: { value: spellBookText }
+            data: {
+                description: {value: spellBookText}
             }
         }
-        await Item.create(newItemData);
+        if (spellBookText !== '') {
+            await Item.create(newItemData, {renderSheet: true});
+            ui.notifications.info("Spellbook has been created in the items tab");
+
+        } else {
+            ui.notifications.warn("No spells found");
+        }
     }
 }
 

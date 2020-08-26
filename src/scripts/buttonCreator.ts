@@ -14,7 +14,7 @@ class buttonCreator{
     static addButton(element, actor, type) {
         if (element.length != 1) return;
 
-        let button = $(`<a class="popout" style><i class="fas fa-ruler"></i>Export Spellbook</a>`);
+        let button = $(`<a class="popout" style><i class="fas fa-book"></i>Export Spellbook</a>`);
         button.on('click', () => spellManager.spellExporter(actor.object));
 
         element.after(button);

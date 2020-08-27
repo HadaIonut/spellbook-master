@@ -52,16 +52,14 @@ class spellManager {
     private async _prepareSpellbookText(items: any): Promise<string> {
         let spellBookText = ``;
         const entries = await this._prepareDataForText(items);
-        let previous = entries[0].get('level');
-        spellBookText += `<div align="center"> <b align="center">${previous}: </b>`;
-        // entries.forEach((entry) => {
-        //     if (entry.get('level') !== previous) {
-        //         spellBookText += `</div>`;
-        //         previous = entry.get('level');
-        //         spellBookText += `<div align="center"> <b align="center">${previous}: </b> `;
-        //     }
-        //     spellBookText += `<p align="center"> @Compendium[${entry.get("key")}.${entry.get("entry")._id}]{${entry.get("entry").name}} </p>`;
-        // })
+        for (const entry in entries){
+            spellBookText += `<div align="center"> <b align="center">${entry}: </b> `;
+            entries[entry].forEach((spell) => {
+                spellBookText += `<p align="center"> @Compendium[${spell.get("key")}.${spell.get("entry")._id}]{${spell.get("entry").name}} </p> `;
+            })
+            spellBookText += `</div>`;
+        }
+
         return spellBookText;
     }
 

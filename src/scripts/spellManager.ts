@@ -35,16 +35,17 @@ class spellManager {
 
     private async _prepareDataForText(items: any) {
         const spellCompendiums = this._findSpellCompendium();
-        const compendiumEntry = [];
+        const compendiumEntry = {};
         for (const item of items) {
             if (item.type !== "spell") continue;
-            compendiumEntry.push(await this._findSpellInCompendium(item, spellCompendiums));
+            const spell = await this._findSpellInCompendium(item, spellCompendiums);
+            const spellLevel = spell.get('level');
+            if (compendiumEntry[spellLevel]) compendiumEntry[spellLevel].push(spell);
+            else {
+                compendiumEntry[spellLevel] = [];
+                compendiumEntry[spellLevel].push(spell)
+            }
         }
-        compendiumEntry.sort((a, b) => {
-            if (a.get("level") < b.get("level")) return -1;
-            if (a.get("level") > b.get("level")) return 1;
-            return 0
-        });
         return compendiumEntry
     }
 
@@ -53,14 +54,14 @@ class spellManager {
         const entries = await this._prepareDataForText(items);
         let previous = entries[0].get('level');
         spellBookText += `<div align="center"> <b align="center">${previous}: </b>`;
-        entries.forEach((entry) => {
-            if (entry.get('level') !== previous) {
-                spellBookText += `</div>`;
-                previous = entry.get('level');
-                spellBookText += `<div align="center"> <b align="center">${previous}: </b> `;
-            }
-            spellBookText += `<p align="center"> @Compendium[${entry.get("key")}.${entry.get("entry")._id}]{${entry.get("entry").name}} </p>`;
-        })
+        // entries.forEach((entry) => {
+        //     if (entry.get('level') !== previous) {
+        //         spellBookText += `</div>`;
+        //         previous = entry.get('level');
+        //         spellBookText += `<div align="center"> <b align="center">${previous}: </b> `;
+        //     }
+        //     spellBookText += `<p align="center"> @Compendium[${entry.get("key")}.${entry.get("entry")._id}]{${entry.get("entry").name}} </p>`;
+        // })
         return spellBookText;
     }
 

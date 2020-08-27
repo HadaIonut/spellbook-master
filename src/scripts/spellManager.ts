@@ -18,28 +18,28 @@ class spellManager {
         return spellCompendiums;
     }
 
-    private async _findSpellInCompendium(spell: any, compendiums: Set<any>): Promise<Map<any, any>> {
-        const entrySet = new Map();
+    private async _findSpellInCompendium(spell: any, compendiums: Set<any>): Promise<Object> {
+        const entrySet = {};
         for (const key of compendiums) {
             const pack = game.packs.get(key);
             await pack.getIndex();
             const entry = pack.index.find(e => e.name === spell.name);
             if (entry) {
-                entrySet.set("entry", entry);
-                entrySet.set("key", key);
-                entrySet.set("level", spell.labels.level);
+                entrySet['entry']  = entry;
+                entrySet['key'] = key;
+                entrySet['level'] = spell.labels.level;
                 return entrySet;
             }
         }
     }
 
-    private async _prepareDataForText(items: any) {
+    private async _prepareDataForText(items: any): Promise<Object> {
         const spellCompendiums = this._findSpellCompendium();
         const compendiumEntry = {};
         for (const item of items) {
-            if (item.type !== "spell") continue;
+            if (item.type !== 'spell') continue;
             const spell = await this._findSpellInCompendium(item, spellCompendiums);
-            const spellLevel = spell.get('level');
+            const spellLevel = spell['level'];
             if (compendiumEntry[spellLevel]) compendiumEntry[spellLevel].push(spell);
             else {
                 compendiumEntry[spellLevel] = [];
@@ -55,7 +55,7 @@ class spellManager {
         for (const entry in entries){
             spellBookText += `<div align="center"> <b align="center">${entry}: </b> `;
             entries[entry].forEach((spell) => {
-                spellBookText += `<p align="center"> @Compendium[${spell.get("key")}.${spell.get("entry")._id}]{${spell.get("entry").name}} </p> `;
+                spellBookText += `<p align="center"> @Compendium[${spell['key']}.${spell['entry']._id}]{${spell['entry'].name}} </p> `;
             })
             spellBookText += `</div>`;
         }
@@ -80,10 +80,10 @@ class spellManager {
         }
         if (spellBookText !== '') {
             await Item.create(newItemData, {renderSheet: true});
-            ui.notifications.info("Spellbook has been created in the items tab");
+            ui.notifications.info('Spellbook has been created in the items tab');
 
         } else {
-            ui.notifications.warn("No spells found");
+            ui.notifications.warn('No spells found');
         }
     }
 }

@@ -2,6 +2,8 @@
 
 Spellbook Master is a quick and simple Foundry VTT module that exports an actor's spells as a spellbook with the press of a button.
 
+Who needs it? Well to be honest mostly me... But it is usefull for any DM that likes having a lot of spellcasters in their encounters and wants to have a really easy way to make a spellbook for the party.
+
 ## Installation 
 
 For now you can install this module only by copying the manifest url into the module install.

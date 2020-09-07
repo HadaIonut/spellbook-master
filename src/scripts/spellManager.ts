@@ -31,6 +31,7 @@ class spellManager {
                 return entrySet;
             }
         }
+        ui.notifications.warn(`The spell '${spell.name}' has not been found.`);
     }
 
     private async _prepareDataForText(items: any): Promise<Object> {
@@ -39,6 +40,7 @@ class spellManager {
         for (const item of items) {
             if (item.type !== 'spell') continue;
             const spell = await this._findSpellInCompendium(item, spellCompendiums);
+            if (!spell) continue;
             const spellLevel = spell['level'];
             if (compendiumEntry[spellLevel]) compendiumEntry[spellLevel].push(spell);
             else {

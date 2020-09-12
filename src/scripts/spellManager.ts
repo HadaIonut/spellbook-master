@@ -9,6 +9,11 @@ class spellManager {
         return spellManager._instance;
     }
 
+    /**
+     * Returns all the compendiums that have spells in the name
+     *
+     * @private
+     */
     private _findSpellCompendium(): Set<any> {
         const availableCompendiums = game.packs.keys();
         const spellCompendiums = new Set();
@@ -18,6 +23,14 @@ class spellManager {
         return spellCompendiums;
     }
 
+    /**
+     * Searches for a given spell in all compendiums that are given as parameters
+     * Returns an object with the following fields: entry, key, level
+     *
+     * @param spell - a spell that has to be searched
+     * @param compendiums - a set of all the compendiums
+     * @private
+     */
     private async _findSpellInCompendium(spell: any, compendiums: Set<any>): Promise<Object> {
         const entrySet = {};
         for (const key of compendiums) {
@@ -34,6 +47,13 @@ class spellManager {
         ui.notifications.warn(`The spell '${spell.name}' has not been found.`);
     }
 
+
+    /**
+     * Returns the spells an object that contains all the items spells sorted by their level
+     *
+     * @param items - the items structure from the actor
+     * @private
+     */
     private async _prepareDataForText(items: any): Promise<Object> {
         const spellCompendiums = this._findSpellCompendium();
         const compendiumEntry = {};
@@ -51,6 +71,12 @@ class spellManager {
         return compendiumEntry
     }
 
+    /**
+     * Returns the text that should be given to the spellbook by adding the spells into the html
+     *
+     * @param items - the items structure from the actor
+     * @private
+     */
     private async _prepareSpellbookText(items: any): Promise<string> {
         let spellBookText = ``;
         const entries = await this._prepareDataForText(items);
@@ -65,6 +91,12 @@ class spellManager {
         return spellBookText;
     }
 
+    /**
+     * Creates a new item that contains all the spells of the target actor
+     * In case the actor is not a spellcaster it will show a warning and will not create the item
+     *
+     * @param actor - the actor that provides the spells for the spellbook
+     */
     public async spellExporter(actor) {
         const items = actor.data.items;
 

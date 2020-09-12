@@ -1,7 +1,7 @@
 {
   "name": "spellbook-master",
   "title": "Spellbook Master",
-  "description": "A simple module to export a spellbook as an item from an actor.",
+  "description": "This module simplifies the process of creating spellbooks from actors that have spells. Now, creating a spellbook, is as simple as pressing a button and a new item, that has all the spells of the owner actor, will appear in the items tab. ",
   "author": "HadaIonut",
   "version": "0.0.2",
   "esmodules": ["scripts/spellbook-master.js"],
@@ -12,8 +12,9 @@
       "name": "English",
       "path": "lang/en.json"
     }],
+  "system": "dnd5e",
   "minimumCoreVersion": "0.6.5",
-  "compatibleCoreVersion": "0.7.0",
+  "compatibleCoreVersion": "0.7.2",
   "url": "https://github.com/HadaIonut/spellbook-master",
   "manifest": "",
   "download": "",

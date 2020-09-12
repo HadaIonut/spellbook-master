@@ -3,7 +3,7 @@
   "title": "Spellbook Master",
   "description": "A simple module to export a spellbook as an item from an actor.",
   "author": "HadaIonut",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "esmodules": ["scripts/spellbook-master.js"],
   "styles": ["styles/spellbook-master.css"],
   "languages":
@@ -14,7 +14,7 @@
     }],
   "minimumCoreVersion": "0.6.5",
   "compatibleCoreVersion": "0.7.0",
-  "url": "",
+  "url": "https://github.com/HadaIonut/spellbook-master",
   "manifest": "",
   "download": "",
   "changelog": ""

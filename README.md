@@ -1,3 +1,5 @@
+![Downloads](https://img.shields.io/github/downloads/HadaIonut/spellbook-master/v0.0.2/spellbook-master-v.0.0.2.zip?label=Downloads)
+
 # Spellbook Master
 
 Spellbook Master is a quick and simple Foundry VTT module that exports an actor's spells as a spellbook with the press of a button.

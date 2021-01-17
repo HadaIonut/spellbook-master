@@ -40,7 +40,7 @@ class spellManager {
             if (entry) {
                 entrySet['entry']  = entry;
                 entrySet['key'] = key;
-                entrySet['level'] = spell.labels.level;
+                entrySet['level'] = spell.data.level;
                 return entrySet;
             }
         }

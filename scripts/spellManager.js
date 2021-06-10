@@ -95,10 +95,13 @@ const spellExporter = async (actor) => {
     const newItemData = {
         name: newItemName,
         type: "loot",
-        flags: "",
+        flags: {},
+        folder: null,
         img: "systems/dnd5e/icons/items/inventory/book-purple.jpg",
         data: {
-            description: {value: spellBookText}
+            description: {value: spellBookText},
+            weight: 3,
+            price: 50
         }
     }
     if (spellBookText !== '') {

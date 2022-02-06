@@ -2,7 +2,7 @@
   "name": "spellbook-master",
   "title": "Spellbook Master",
   "description": "This module simplifies the process of creating spellbooks from actors that have spells. Now, creating a spellbook, is as simple as pressing a button and a new item, that has all the spells of the owner actor, will appear in the items tab. ",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "HadaIonut",
   "type": "module",
   "socket": true,
@@ -32,14 +32,14 @@
     }
   ],
   "languages": [
-      {
-          "lang": "en",
-          "name": "English",
-          "path": "languages/en.json"
-      }
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
   ],
   "scripts": [],
-  "esmodules": ["scripts/spellbook-master.js"],
+  "esmodules": ["main.js"],
   "styles": ["styles/spellbook-master.css"],
   "packs": [],
   "minimumCoreVersion": "0.8.9",

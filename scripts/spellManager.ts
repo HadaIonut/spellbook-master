@@ -1,3 +1,5 @@
+import CONSTANTS from './constants';
+import { i18n } from './lib';
 import { game } from './settings';
 
 /**
@@ -107,8 +109,8 @@ export const spellExporter = async (actor) => {
   };
   if (spellBookText !== '') {
     await Item.create(newItemData, { renderSheet: true });
-    ui.notifications?.info('Spellbook has been created in the items tab');
+    ui.notifications?.info(i18n(`${CONSTANTS.MODULE_NAME}.uisuccessfindspell`));
   } else {
-    ui.notifications?.warn('No spells found');
+    ui.notifications?.warn(i18n(`${CONSTANTS.MODULE_NAME}.uifailurefindspell`));
   }
 };

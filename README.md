@@ -1,5 +1,4 @@
-# Automated Evocations (Variant Fork)
-## Before opening an issue read [THIS](https://github.com/theripper93/Levels/blob/v9/ISSUES.md)
+# Spellbook Master
 
 ![Latest Release Download Count](https://img.shields.io/github/downloads/p4535992/spellbook-master/latest/module.zip?color=2b82fc&label=DOWNLOADS&style=for-the-badge) 
 

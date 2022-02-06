@@ -2,21 +2,55 @@
   "name": "spellbook-master",
   "title": "Spellbook Master",
   "description": "This module simplifies the process of creating spellbooks from actors that have spells. Now, creating a spellbook, is as simple as pressing a button and a new item, that has all the spells of the owner actor, will appear in the items tab. ",
-  "author": "HadaIonut",
   "version": "1.0.4",
+  "author": "HadaIonut",
+  "type": "module",
+  "socket": true,
+  "includes": [
+    "./assets/**",
+    "./lang/**",
+    "./scripts/**",
+    "./styles/**",
+    "./templates/**",
+    "./module.json",
+    "./README.md",
+    "./icons/**",
+    "./packs/**"
+  ],
+  "media": [
+    {
+      "type": "icon",
+      "location": ""
+    },
+    {
+      "type": "cover",
+      "location": ""
+    },
+    {
+      "type": "screenshot",
+      "location": ""
+    }
+  ],
+  "languages": [
+      {
+          "lang": "en",
+          "name": "English",
+          "path": "languages/en.json"
+      }
+  ],
+  "scripts": [],
   "esmodules": ["scripts/spellbook-master.js"],
   "styles": ["styles/spellbook-master.css"],
-  "languages":
-    [{
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }],
-  "system": ["dnd5e"],
-  "minimumCoreVersion": "0.8.2",
-  "compatibleCoreVersion": "0.8.3",
-  "url": "https://github.com/HadaIonut/spellbook-master",
-  "manifest": "https://github.com/HadaIonut/spellbook-master/releases/download/v1.0.4/module.json",
-  "download": "https://github.com/HadaIonut/spellbook-master/releases/download/v1.0.4/spellbook-master.zip",
-  "changelog": ""
+  "packs": [],
+  "minimumCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9",
+  "manifestPlusVersion": "1.2.0",
+  "url": "https://github.com/p4535992/spellbook-master",
+  "manifest": "https://github.com/p4535992/spellbook-master/releases/latest/download/module.json",
+  "download": "https://github.com/p4535992/spellbook-master/releases/download/v1.5.4/module.zip",
+  "readme": "https://github.com/p4535992/spellbook-master/blob/v1.5.4/README.md",
+  "changelog": "https://github.com/p4535992/spellbook-master/blob/v1.5.4/changelog.md",
+  "bugs": "https://github.com/p4535992/spellbook-master/issues",
+  "allowBugReporter": true,
+  "dependencies": []
 }

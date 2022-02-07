@@ -3,7 +3,7 @@
   "name": "spellbook-master",
   "title": "Spellbook Master",
   "description": "This module simplifies the process of creating spellbooks from actors that have spells. Now, creating a spellbook, is as simple as pressing a button and a new item, that has all the spells of the owner actor, will appear in the items tab. ",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "package": "gulp package",
     "build": "gulp clean && gulp build && gulp link",

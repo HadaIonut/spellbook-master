@@ -1,6 +1,5 @@
 import CONSTANTS from './constants';
 import { i18n } from './lib';
-import { game } from './settings';
 
 /**
  * Returns all the compendiums that have spells in the name

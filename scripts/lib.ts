@@ -1,19 +1,94 @@
-import EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/abstract/embedded-collection.mjs';
-import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs';
 import CONSTANTS from './constants';
-import { canvas, game } from './settings';
 
 // =============================
 // Module Generic function
 // =============================
 
-export function isGMConnected(): boolean {
-  return Array.from(<Users>game.users).find((user) => user.isGM && user.active) ? true : false;
+export async function getToken(documentUuid) {
+  const document = await fromUuid(documentUuid);
+  //@ts-ignore
+  return document?.token ?? document;
+}
+
+export function getOwnedTokens(priorityToControlledIfGM: boolean): Token[] {
+  const gm = game.user?.isGM;
+  if (gm) {
+    if (priorityToControlledIfGM) {
+      const arr = <Token[]>canvas.tokens?.controlled;
+      if (arr && arr.length > 0) {
+        return arr;
+      } else {
+        return <Token[]>canvas.tokens?.placeables;
+      }
+    } else {
+      return <Token[]>canvas.tokens?.placeables;
+    }
+  }
+  if (priorityToControlledIfGM) {
+    const arr = <Token[]>canvas.tokens?.controlled;
+    if (arr && arr.length > 0) {
+      return arr;
+    }
+  }
+  let ownedTokens = <Token[]>canvas.tokens?.placeables.filter((token) => token.isOwner && (!token.data.hidden || gm));
+  if (ownedTokens.length === 0 || !canvas.tokens?.controlled[0]) {
+    ownedTokens = <Token[]>(
+      canvas.tokens?.placeables.filter((token) => (token.observer || token.isOwner) && (!token.data.hidden || gm))
+    );
+  }
+  return ownedTokens;
+}
+
+export function is_UUID(inId) {
+  return typeof inId === 'string' && (inId.match(/\./g) || []).length && !inId.endsWith('.');
+}
+
+export function getUuid(target) {
+  // If it's an actor, get its TokenDocument
+  // If it's a token, get its Document
+  // If it's a TokenDocument, just use it
+  // Otherwise fail
+  const document = getDocument(target);
+  return document?.uuid ?? false;
+}
+
+export function getDocument(target) {
+  if (target instanceof foundry.abstract.Document) return target;
+  return target?.document;
+}
+
+export function is_real_number(inNumber) {
+  return !isNaN(inNumber) && typeof inNumber === 'number' && isFinite(inNumber);
+}
+
+export function isGMConnected() {
+  return !!Array.from(<Users>game.users).find((user) => user.isGM && user.active);
+}
+
+export function isGMConnectedAndSocketLibEnable() {
+  return isGMConnected() && !game.settings.get(CONSTANTS.MODULE_NAME, 'doNotUseSocketLibFeature');
 }
 
 export function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function isActiveGM(user) {
+  return user.active && user.isGM;
+}
+
+export function getActiveGMs() {
+  return game.users?.filter(isActiveGM);
+}
+
+export function isResponsibleGM() {
+  if (!game.user?.isGM) return false;
+  return !getActiveGMs()?.some((other) => other.data._id < <string>game.user?.data._id);
+}
+
+// ================================
+// Logger utility
+// ================================
 
 // export let debugEnabled = 0;
 // 0 = none, warnings = 1, debug = 2, all = 3
@@ -38,6 +113,13 @@ export function notify(message) {
   return message;
 }
 
+export function info(info, notify = false) {
+  info = `${CONSTANTS.MODULE_NAME} | ${info}`;
+  if (notify) ui.notifications?.info(info);
+  console.log(info.replace('<br>', '\n'));
+  return info;
+}
+
 export function warn(warning, notify = false) {
   warning = `${CONSTANTS.MODULE_NAME} | ${warning}`;
   if (notify) ui.notifications?.warn(warning);
@@ -56,11 +138,11 @@ export function timelog(message): void {
 }
 
 export const i18n = (key: string): string => {
-  return game.i18n.localize(key).trim();
+  return game.i18n.localize(key)?.trim();
 };
 
 export const i18nFormat = (key: string, data = {}): string => {
-  return game.i18n.format(key, data).trim();
+  return game.i18n.format(key, data)?.trim();
 };
 
 // export const setDebugLevel = (debugText: string): void => {
@@ -72,7 +154,9 @@ export const i18nFormat = (key: string, data = {}): string => {
 export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
   return `<p class="${CONSTANTS.MODULE_NAME}-dialog">
         <i style="font-size:3rem;" class="${icon}"></i><br><br>
-        <strong style="font-size:1.2rem;">Item Piles</strong>
+        <strong style="font-size:1.2rem;">${CONSTANTS.MODULE_NAME}</strong>
         <br><br>${message}
     </p>`;
 }
+
+// =========================================================================================

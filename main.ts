@@ -12,7 +12,6 @@
 // Import JavaScript modules
 
 // Import TypeScript modules
-import { canvas, game } from './scripts/settings';
 import { registerSettings } from './scripts/settings';
 import CONSTANTS from './scripts/constants';
 import { initHooks, readyHooks, setupHooks } from './scripts/spellbook-master';
@@ -69,8 +68,7 @@ Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
-    `
-    - Rewriting with typescript and update for foundryvtt'`,
+    `- Update typescript`,
     'minor',
   );
 });

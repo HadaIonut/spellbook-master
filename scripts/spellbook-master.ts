@@ -1,6 +1,5 @@
 import { i18n, warn } from './lib.js';
 import { spellExporter } from './spellManager.js';
-import { game } from './settings';
 import CONSTANTS from './constants.js';
 
 export const initHooks = () => {

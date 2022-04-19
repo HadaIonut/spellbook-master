@@ -3,7 +3,7 @@
   "name": "spellbook-master",
   "title": "Spellbook Master",
   "description": "This module simplifies the process of creating spellbooks from actors that have spells. Now, creating a spellbook, is as simple as pressing a button and a new item, that has all the spells of the owner actor, will appear in the items tab. ",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "package": "gulp package",
     "build": "gulp clean && gulp build && gulp link",
@@ -17,8 +17,8 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^0.8.9-9",
-    "@types/jquery": "^3.5.9",
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.255.3",
+    "@types/jquery": "^3.5.14",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
@@ -28,8 +28,8 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-jquery": "^3.0.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-tsdoc": "^0.2.14",
@@ -44,8 +44,8 @@
     "gulp-sass": "^4.1.1",
     "gulp-typescript": "^6.0.0-alpha.1",
     "json-stringify-pretty-compact": "^2.0.0",
-    "prettier": "^2.5.0",
-    "sass": "^1.44.0",
+    "prettier": "^2.6.2",
+    "sass": "^1.50.0",
     "yargs": "^15.4.1"
   },
   "lint-staged": {
@@ -53,6 +53,7 @@
     "*.(json|scss)": "prettier --write"
   },
   "dependencies": {
-    "typescript": "^4.5.2"
+    "build": "^0.1.4",
+    "typescript": "^4.6.3"
   }
 }

@@ -1,5 +1,10 @@
 {
-  "metricsystem.meters": "Meters",
-  "metricsystem.kilometers": "Kilometers",
-  "lbs.": "kg."
+  "spellbook-master.setting.removeLabelSheetHeader.title": "Remove label from sheet header button",
+  "spellbook-master.setting.removeLabelSheetHeader.hint": "Remove label from sheet header button useful for small monitor, tablet",
+  "spellbook-master.setting.restrictOnlyGM.title": "Only GM can see Polymorpher button",
+  "spellbook-master.setting.restrictOnlyGM.hint": "Restrict the polymorpher list to GMs only",
+  "spellbook-master.actorSheetBtn": "Export Spellbook",
+  "spellbook-master.uisuccessfindspell": "Spellbook has been created in the items tab",
+  "spellbook-master.uifailurefindspell": "No spells found",
+  "spellbook-master.uifailurenotfoundspell": "The spell '{spellname}' has not been found."
 }
